@@ -1,0 +1,6 @@
+joblib==0.14.1
+Flask==1.0.2
+opencv_contrib_python==4.2.0.34
+~==mpy
+numpy==1.19.0
+gunicorn==19.9.0
