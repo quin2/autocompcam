@@ -1,5 +1,6 @@
 import json
 from flask import Flask, jsonify, Response, request, current_app
+from flask_cors import CORS
 
 import numpy as np 
 import cv2
@@ -59,6 +60,7 @@ def pipeline(img):
 	return rhist
 
 app = Flask(__name__)
+CORS(app)
 app.regr = load('models/compCam.joblib')
 app.ss = load('models/ssModel.joblib')
 app.pca = load('models/pcaMode.joblib')
