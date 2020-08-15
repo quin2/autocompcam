@@ -1,6 +1,6 @@
 import json
 from flask import Flask, jsonify, Response, request, current_app
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 import numpy as np 
 import cv2
@@ -60,16 +60,21 @@ def pipeline(img):
 	return rhist
 
 app = Flask(__name__)
+
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 app.regr = load('models/compCam.joblib')
 app.ss = load('models/ssModel.joblib')
 app.pca = load('models/pcaMode.joblib')
 
 @app.route('/')
+@cross_origin()
 def index():
     return "usage: send picture to /v1/score to evaluate scene composition"
 
 @app.route('/v1/score', methods=['POST'])
+@cross_origin()
 def compScore():
 	#load from request
 	data = request.files['file']
